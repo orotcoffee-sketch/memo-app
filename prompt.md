@@ -1,1 +1,2 @@
-지금 변경사항커밋해줘, 그리고 커밋 메세지 어떻게 적엇는지 알려줘
+issues.md 의 이슈2개를 gh CLI 로 Github issues로 등록해줘.
+(만약저장소가 없으면 gh repo create로 먼저 만들어줘)

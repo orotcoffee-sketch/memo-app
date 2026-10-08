@@ -1,2 +1,10 @@
-issues.md 의 이슈2개를 gh CLI 로 Github issues로 등록해줘.
-(만약저장소가 없으면 gh repo create로 먼저 만들어줘)
+./claude/skillss/test-scenarios/SKILLS.md 스킬 만들어줘. 이슈 번호는 인자로 받아.
+
+절차: 
+- 1. gh issue view<번호>로 이슈와 완료 체크리스트 읽기
+- 2. 함수 시그니처(입력/출럭 에러 메시지) 제안 -> 사용자 승인 받기. 구현 금지
+- 3. 테스트 시나리오를 [정상] [경계] [예외] 로 분류해서 제안
+형식: "함수명 should ... when ..."
+  경계값은 최대 -1, 최대, 최대+1를 꼭 포함  
+  - 4. 완료 체크리스트 항목이 전부 시나리오에 들어갔는지 대조표=> 사용자 승인 
+  5. 결과를 docs/features/tag/scenarios-<번호>.md에 저장

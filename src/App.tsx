@@ -1,3 +1,4 @@
+import { MemoCount } from './components/MemoCount'
 import { useEffect, useState, type FormEvent } from 'react'
 
 type Memo = { id: string; text: string; createdAt: number }
@@ -37,7 +38,8 @@ export default function App() {
 
   return (
     <main className="mx-auto min-h-screen max-w-md p-6">
-      <h1 className="mb-4 text-2xl font-bold">메모앱</h1>
+      <h1 className="mb-1 text-2xl font-bold">메모앱</h1>
+      <MemoCount count={memos.length} />
 
       <form onSubmit={addMemo} className="mb-6 flex gap-2">
         <input

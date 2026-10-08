@@ -1,5 +1,5 @@
-Vite + React + TypeScript 로 아주 간단한 메모앱을 만들어줘. 
-- 메모 추가, 메모 목록 보기, 메모 삭제만 만들어줘
-- 저장은 localStorage
-- Tailwind Css 사용
-- viteset + Teact Testing Library 설치만 해두고 테스트는 아직 쓰지마
+.claude/skills/mermaid-diagram/SKILL.md 스킬 만들어줘
+하는일 : 
+.src/ 의 컴포넌트, 훅, 유틸 파일 목록에 모으고 import 관계 부넉
+docs/architecture/index.html에 mermaid flowchard TD로 그리기
+브라우저로 열기

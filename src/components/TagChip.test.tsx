@@ -15,6 +15,21 @@ describe('TagChip', () => {
     expect(onClick).toHaveBeenCalledWith('업무')
   })
 
+  it('active가 아니면 aria-pressed가 false다', () => {
+    render(<TagChip tag="업무" active={false} onClick={() => {}} />)
+    expect(screen.getByRole('button', { name: '#업무' })).toHaveAttribute(
+      'aria-pressed',
+      'false',
+    )
+  })
+
+  it('active여도 클릭하면 태그를 넘겨 onClick을 호출한다', async () => {
+    const onClick = vi.fn()
+    render(<TagChip tag="업무" active onClick={onClick} />)
+    await userEvent.click(screen.getByRole('button', { name: '#업무' }))
+    expect(onClick).toHaveBeenCalledWith('업무')
+  })
+
   it('active이면 aria-pressed가 true다', () => {
     render(<TagChip tag="업무" active onClick={() => {}} />)
     expect(screen.getByRole('button', { name: '#업무' })).toHaveAttribute(

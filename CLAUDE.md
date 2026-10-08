@@ -25,3 +25,10 @@ A small Korean-language memo app: React 19 + TypeScript + Vite, styled with Tail
 - 파일 이름: 컴포넌트는 PascalCase, 그 외는 camelCase
 - 테스트 파일은 대상 파일과 같은 폴더에 `.test.ts(x)` 이름으로 둠
 - 파일은 200줄을 넘기지 않음
+
+## 커밋 규칙
+
+- 형식: `타입(범위): 설명`
+- 타입: `feat` / `fix` / `test` / `refactor` / `chore` / `docs`
+- 예시: `feat(tag): 노트에 태그 추가`
+- 커밋 메시지는 commitlint(Conventional Commits)가 commit-msg 훅에서 검사함

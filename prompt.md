@@ -1,10 +1,8 @@
-./claude/skillss/test-scenarios/SKILLS.md 스킬 만들어줘. 이슈 번호는 인자로 받아.
-
+.claude/skills/tdd-red/SKILL.md 스킬을 만들어줘.
 절차: 
-- 1. gh issue view<번호>로 이슈와 완료 체크리스트 읽기
-- 2. 함수 시그니처(입력/출럭 에러 메시지) 제안 -> 사용자 승인 받기. 구현 금지
-- 3. 테스트 시나리오를 [정상] [경계] [예외] 로 분류해서 제안
-형식: "함수명 should ... when ..."
-  경계값은 최대 -1, 최대, 최대+1를 꼭 포함  
-  - 4. 완료 체크리스트 항목이 전부 시나리오에 들어갔는지 대조표=> 사용자 승인 
-  5. 결과를 docs/features/tag/scenarios-<번호>.md에 저장
+1. scenarios-<번호>.md의 시나리오를 Vitest 테스트로 변환
+2. 구현 파일은 함수 모양만 만들고 본문은 throw new Error('not implemented')
+3. 구현코드는 절대 작성 금지 
+4. npm test 실행 -> 모든 테스트가 "not implemented" 때문에 실패하는지 확인
+ "cannot find module" 같은 에러가 뜨면 실패가 아니라 고장(broken) 이니 고친다.
+ 5. react 컴포넌트 테스트는 getByRole > getByText 우선, 내부 state 검사 금지

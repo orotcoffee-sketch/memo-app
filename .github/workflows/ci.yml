@@ -1,0 +1,24 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+      - run: npm run lint
+      # 루트 tsconfig 는 files: [] 라 `tsc --noEmit` 만으로는 아무것도 검사하지 않는다.
+      # 참조 프로젝트(app/node)가 모두 noEmit 이므로 `tsc -b` 로 검사한다.
+      - run: npx tsc -b
+      - run: npm audit --audit-level=moderate
+      - run: npm test -- --run

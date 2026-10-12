@@ -15,6 +15,8 @@ type MemoItemProps = {
 }
 
 const ITEM_CLASS = 'rounded border border-gray-200 px-3 py-2'
+// IME 가 처리 중인 키 입력에 브라우저가 붙이는 keyCode
+const IME_PROCESSING_KEY_CODE = 229
 
 export function MemoItem({
   memo,
@@ -35,6 +37,11 @@ export function MemoItem({
   }
   const handleDelete = () => onDelete(memo.id)
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    // 한글 조합 중의 Enter/Esc 는 조합을 확정·취소하는 키다. 저장·취소로 쓰지 않는다
+    // (사파리는 조합 확정 직후 isComposing 이 false 이고 keyCode 만 229 로 온다)
+    if (e.nativeEvent.isComposing || e.keyCode === IME_PROCESSING_KEY_CODE) {
+      return
+    }
     if (e.key === 'Enter') {
       finishedRef.current = true
       onSaveEdit(memo.id, e.currentTarget.value)

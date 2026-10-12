@@ -16,6 +16,8 @@ function loadMemos(): Memo[] {
   }
 }
 
+const hasTag = (memo: Memo, tag: string) => parseTags(memo.text).includes(tag)
+
 export default function App() {
   const [memos, setMemos] = useState<Memo[]>(loadMemos)
   const [text, setText] = useState('')
@@ -23,12 +25,12 @@ export default function App() {
 
   // 선택한 태그의 메모가 모두 삭제되면 필터를 자동으로 해제한다
   const activeTag =
-    selectedTag && memos.some((m) => parseTags(m.text).includes(selectedTag))
+    selectedTag && memos.some((m) => hasTag(m, selectedTag))
       ? selectedTag
       : null
 
   const visibleMemos = activeTag
-    ? memos.filter((m) => parseTags(m.text).includes(activeTag))
+    ? memos.filter((m) => hasTag(m, activeTag))
     : memos
 
   const handleTagClick = (tag: string) =>
@@ -38,7 +40,7 @@ export default function App() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(memos))
   }, [memos])
 
-  const addMemo = (e: FormEvent) => {
+  const handleAddMemo = (e: FormEvent) => {
     e.preventDefault()
     const trimmed = text.trim()
     if (!trimmed) return
@@ -49,12 +51,9 @@ export default function App() {
     setText('')
   }
 
-  const deleteMemo = (id: string) => {
+  const handleDeleteMemo = (id: string) => {
     const remaining = memos.filter((m) => m.id !== id)
-    if (
-      selectedTag &&
-      !remaining.some((m) => parseTags(m.text).includes(selectedTag))
-    ) {
+    if (selectedTag && !remaining.some((m) => hasTag(m, selectedTag))) {
       setSelectedTag(null)
     }
     setMemos(remaining)
@@ -65,7 +64,7 @@ export default function App() {
       <h1 className="mb-1 text-2xl font-bold">메모앱</h1>
       <MemoCount count={visibleMemos.length} />
 
-      <form onSubmit={addMemo} className="mb-6 flex gap-2">
+      <form onSubmit={handleAddMemo} className="mb-6 flex gap-2">
         <input
           value={text}
           onChange={(e) => setText(e.target.value)}
@@ -92,7 +91,7 @@ export default function App() {
               <div className="flex items-center justify-between">
                 <span className="break-all">{m.text}</span>
                 <button
-                  onClick={() => deleteMemo(m.id)}
+                  onClick={() => handleDeleteMemo(m.id)}
                   className="ml-3 shrink-0 text-sm text-red-600 hover:underline"
                 >
                   삭제

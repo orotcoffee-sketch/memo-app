@@ -49,8 +49,16 @@ export default function App() {
     setText('')
   }
 
-  const deleteMemo = (id: string) =>
-    setMemos((prev) => prev.filter((m) => m.id !== id))
+  const deleteMemo = (id: string) => {
+    const remaining = memos.filter((m) => m.id !== id)
+    if (
+      selectedTag &&
+      !remaining.some((m) => parseTags(m.text).includes(selectedTag))
+    ) {
+      setSelectedTag(null)
+    }
+    setMemos(remaining)
+  }
 
   return (
     <main className="mx-auto min-h-screen max-w-md p-6">

@@ -52,16 +52,23 @@ export default function App() {
     setText('')
   }
 
-  const handleDeleteMemo = (id: string) => {
-    const remaining = memos.filter((m) => m.id !== id)
-    if (selectedTag && !remaining.some((m) => hasTag(m, selectedTag))) {
+  // 바뀐 목록에 선택한 태그의 메모가 하나도 없으면 선택 태그 state 도 해제한다
+  const clearTagIfGone = (nextMemos: Memo[]) => {
+    if (selectedTag && !nextMemos.some((m) => hasTag(m, selectedTag))) {
       setSelectedTag(null)
     }
+  }
+
+  const handleDeleteMemo = (id: string) => {
+    const remaining = memos.filter((m) => m.id !== id)
+    clearTagIfGone(remaining)
     setMemos(remaining)
   }
 
   const handleSaveEdit = (id: string, nextText: string) => {
-    setMemos((prev) => updateMemoText(prev, id, nextText))
+    const updated = updateMemoText(memos, id, nextText)
+    clearTagIfGone(updated)
+    setMemos(updated)
     setEditingId(null)
   }
 

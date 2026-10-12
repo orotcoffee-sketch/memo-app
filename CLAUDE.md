@@ -32,3 +32,19 @@ A small Korean-language memo app: React 19 + TypeScript + Vite, styled with Tail
 - 타입: `feat` / `fix` / `test` / `refactor` / `chore` / `docs`
 - 예시: `feat(tag): 노트에 태그 추가`
 - 커밋 메시지는 commitlint(Conventional Commits)가 commit-msg 훅에서 검사함
+
+## TDD 사이클
+
+순서: `/test-scenarios` → `/tdd-red` → `/tdd-green` → `@ac-verifier` → `/tdd-refactor` → `/security-review` → PR
+
+1. `/test-scenarios <이슈번호>` — 이슈 체크리스트로 함수 시그니처와 테스트 시나리오를 만든다.
+2. `/tdd-red` — 시나리오를 실패하는 테스트로 바꾼다.
+3. `/tdd-green` — 테스트를 통과시키는 최소 구현을 작성한다.
+4. `@ac-verifier` — 이슈의 완료 체크리스트를 코드와 테스트가 만족하는지 검증한다.
+5. `/tdd-refactor` — 동작은 바꾸지 않고 구조만 개선한다.
+6. `/security-review` — 변경사항의 보안을 점검한다.
+7. PR 생성
+
+주의:
+- **함수 시그니처와 테스트 시나리오는 반드시 사람이 승인한다.** 승인 전에는 다음 단계로 넘어가지 않는다.
+- **절차는 스킬, 판단은 에이전트**가 맡는다. 정해진 순서를 따르는 일은 스킬, 충족 여부 같은 독립적인 판단은 에이전트(`ac-verifier`)가 한다.

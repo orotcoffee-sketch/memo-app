@@ -127,4 +127,19 @@ describe('App 태그 필터', () => {
     await user.click(screen.getByRole('button', { name: '삭제' }))
     expect(screen.getByText('메모가 없습니다.')).toBeInTheDocument()
   })
+
+  it('should not turn the filter back on when a memo with the cleared tag is added after the filter was cleared by deletion', async () => {
+    const user = renderApp(['a #업무', 'b #개인'])
+    await user.click(screen.getByRole('button', { name: '#업무' }))
+    await user.click(screen.getByRole('button', { name: '삭제' }))
+    await user.type(screen.getByPlaceholderText('메모를 입력하세요'), 'c #업무')
+    await user.click(screen.getByRole('button', { name: '추가' }))
+    expect(screen.getByText('b #개인')).toBeInTheDocument()
+    expect(screen.getByText('c #업무')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '#업무' })).toHaveAttribute(
+      'aria-pressed',
+      'false',
+    )
+    expect(screen.getByText('총 2개의 메모')).toBeInTheDocument()
+  })
 })

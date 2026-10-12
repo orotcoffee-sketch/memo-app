@@ -1,7 +1,10 @@
-.claude/skills/create-pr/SKILL.md 스킬을 만들어줘.
+.claude/skills/feature-planner/SKILL.md 스킬을 만들어줘. 기능 이름을 인자로 받는다.
 
-1. npm run test:e2e 실행. 실패하면 PR 생성을중단하고
-"npx playwright show-report" 로 실패 지점 확인 -> 단위 테스트 추가 -> 코드 수정" 안내
-E2E 테스트 코드를 고쳐서 통과시키는건 금지
-2. 통과하면 git push -> gh pr create(본문에 Closes #번호)
-사용자가 "PR 올려줘"라고만 말해도 이스킬이 실행되도록 description 을 써줘.
+1. spec-original.md 읽기 -> 한 번에 하나씩 인터뷰(추천 답 포함)
+->  spec-fixed.md
+2. prd.md 작성(개요/ 사용자 이야기/ 기술 결정/ 안만들것 /용어)
+기술 결정은 3안을 표로 비교 -> [멈춤] 사람이 고름 -> 상황/대안/결정/결과 4가지로 기록
+3. [멈춤] " 안 만들것" 목록을 사라멩게 확인
+4. 이슈 분해 : 하나만 끝내도 사용자가 볼 수 있게, "~일때/ ~하면/~된다" 체크리스트 
+5. [멈춤] 이슈 목록 확인후 gh issue create로 등록
+[멈춤] 표시된 곳에서는 반드시 사람에게 묻고 기다려.

@@ -1,10 +1,6 @@
-.claude/skills/feature-planner/SKILL.md 스킬을 만들어줘. 기능 이름을 인자로 받는다.
-
-1. spec-original.md 읽기 -> 한 번에 하나씩 인터뷰(추천 답 포함)
-->  spec-fixed.md
-2. prd.md 작성(개요/ 사용자 이야기/ 기술 결정/ 안만들것 /용어)
-기술 결정은 3안을 표로 비교 -> [멈춤] 사람이 고름 -> 상황/대안/결정/결과 4가지로 기록
-3. [멈춤] " 안 만들것" 목록을 사라멩게 확인
-4. 이슈 분해 : 하나만 끝내도 사용자가 볼 수 있게, "~일때/ ~하면/~된다" 체크리스트 
-5. [멈춤] 이슈 목록 확인후 gh issue create로 등록
-[멈춤] 표시된 곳에서는 반드시 사람에게 묻고 기다려.
+.claude/skills/tdd-loop/SKILL.md 스킬을만들어줘. 이슈 번호를 받는다.
+0. 이슈에 완료 체크리스트가 있는지 확인, main 에서 feat/<기능>-<번호> qmfoscl todtjd
+1. /test-scenarios -> 2. /tdd-red -> 3. /tdd-grenn -> 4. @ac-verifier 
+5. /tdd-refactor -> 6./security-review -> 7 /create-pr
+- 각 스킬의 사람 승인 질문은 절대 건너 뛰지 마
+- 어느 단계에서 멈췄는지 보고

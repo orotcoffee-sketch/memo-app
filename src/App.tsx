@@ -1,9 +1,9 @@
 import { MemoCount } from './components/MemoCount'
-import { TagChip } from './components/TagChip'
+import { MemoItem } from './components/MemoItem'
+import type { Memo } from './types'
 import { parseTags } from './utils/parseTags'
+import { updateMemoText } from './utils/updateMemoText'
 import { useEffect, useState, type FormEvent } from 'react'
-
-type Memo = { id: string; text: string; createdAt: number }
 
 const STORAGE_KEY = 'memos'
 
@@ -22,6 +22,7 @@ export default function App() {
   const [memos, setMemos] = useState<Memo[]>(loadMemos)
   const [text, setText] = useState('')
   const [selectedTag, setSelectedTag] = useState<string | null>(null)
+  const [editingId, setEditingId] = useState<string | null>(null)
 
   // 선택한 태그의 메모가 모두 삭제되면 필터를 자동으로 해제한다
   const activeTag =
@@ -59,6 +60,13 @@ export default function App() {
     setMemos(remaining)
   }
 
+  const handleSaveEdit = (id: string, nextText: string) => {
+    setMemos((prev) => updateMemoText(prev, id, nextText))
+    setEditingId(null)
+  }
+
+  const handleCancelEdit = () => setEditingId(null)
+
   return (
     <main className="mx-auto min-h-screen max-w-md p-6">
       <h1 className="mb-1 text-2xl font-bold">메모앱</h1>
@@ -84,30 +92,17 @@ export default function App() {
       ) : (
         <ul className="space-y-2">
           {visibleMemos.map((m) => (
-            <li
+            <MemoItem
               key={m.id}
-              className="rounded border border-gray-200 px-3 py-2"
-            >
-              <div className="flex items-center justify-between">
-                <span className="break-all">{m.text}</span>
-                <button
-                  onClick={() => handleDeleteMemo(m.id)}
-                  className="ml-3 shrink-0 text-sm text-red-600 hover:underline"
-                >
-                  삭제
-                </button>
-              </div>
-              <div className="mt-2 flex flex-wrap gap-1">
-                {parseTags(m.text).map((tag) => (
-                  <TagChip
-                    key={tag}
-                    tag={tag}
-                    active={tag === activeTag}
-                    onClick={handleTagClick}
-                  />
-                ))}
-              </div>
-            </li>
+              memo={m}
+              editing={m.id === editingId}
+              activeTag={activeTag}
+              onStartEdit={setEditingId}
+              onSaveEdit={handleSaveEdit}
+              onCancelEdit={handleCancelEdit}
+              onDelete={handleDeleteMemo}
+              onTagClick={handleTagClick}
+            />
           ))}
         </ul>
       )}

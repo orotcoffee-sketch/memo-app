@@ -1,9 +1,11 @@
 import type { Memo } from '../types'
 
 export function updateMemoText(
-  _memos: Memo[],
-  _id: string,
-  _text: string,
+  memos: Memo[],
+  id: string,
+  text: string,
 ): Memo[] {
-  throw new Error('not implemented')
+  const trimmed = text.trim()
+  if (!trimmed || !memos.some((m) => m.id === id)) return memos
+  return memos.map((m) => (m.id === id ? { ...m, text: trimmed } : m))
 }
